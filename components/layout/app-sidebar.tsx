@@ -20,8 +20,7 @@ export function AppSidebar() {
                     {navigation.map((item) => {
                          const Icon = item.icon;
 
-                         const active =
-                              pathname === item.href;
+                         const active = pathname === item.href;
 
                          return (
                               <Link
@@ -38,6 +37,7 @@ export function AppSidebar() {
                          );
                     })}
                </nav>
+
           </aside>
      );
 }

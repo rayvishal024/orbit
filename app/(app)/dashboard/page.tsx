@@ -1,32 +1,49 @@
-"use client"
-
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function DashboardPage() {
   return (
-    <div className="p-10">
-      <h1 className="mb-4 text-3xl font-bold">
-        Orbit Dashboard
-      </h1>
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-4xl font-bold tracking-tight">Welcome to Orbit</h1>
+        <p className="mt-2 text-lg text-muted-foreground">Your AI-powered communication workspace</p>
+      </div>
 
-      <button
-        onClick={() => {
-          window.location.href = "/api/connect?plugin=gmail";
-        }}
-      >
-        Connect Gmail
-      </button>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <Card>
+          <CardHeader>
+            <CardTitle>📧 Inbox</CardTitle>
+            <CardDescription>Manage your emails</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">Connect Gmail in settings to view your messages.</p>
+          </CardContent>
+        </Card>
 
-      <button
-        onClick={() =>
-          window.location.href =
-          "/api/connect/callback?plugin=googlecalendar"
-        }
-      >
-        Connect Calendar
-      </button>
+        <Card>
+          <CardHeader>
+            <CardTitle>📅 Calendar</CardTitle>
+            <CardDescription>View your events</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">Connect Google Calendar in settings to manage your schedule.</p>
+          </CardContent>
+        </Card>
 
-      <ThemeToggle />
+        <Card>
+          <CardHeader>
+            <CardTitle>⚙️ Settings</CardTitle>
+            <CardDescription>Configure integrations</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link href="/settings" className="text-sm text-blue-600 hover:underline">
+              Go to Settings →
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+
     </div>
   );
 }

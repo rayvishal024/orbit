@@ -1,9 +1,7 @@
-import React from 'react'
 
-function inbox() {
+export default async function InboxPage() {
+
   return (
-    <div>inbox</div>
-  )
+  <div>Inbox page</div>
+  );
 }
-
-export default inbox
