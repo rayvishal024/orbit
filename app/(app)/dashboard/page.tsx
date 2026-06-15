@@ -1,3 +1,5 @@
+"use client"
+
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 export default function DashboardPage() {
@@ -6,6 +8,23 @@ export default function DashboardPage() {
       <h1 className="mb-4 text-3xl font-bold">
         Orbit Dashboard
       </h1>
+
+      <button
+        onClick={() => {
+          window.location.href = "/api/connect?plugin=gmail";
+        }}
+      >
+        Connect Gmail
+      </button>
+
+      <button
+        onClick={() =>
+          window.location.href =
+          "/api/connect/callback?plugin=googlecalendar"
+        }
+      >
+        Connect Calendar
+      </button>
 
       <ThemeToggle />
     </div>

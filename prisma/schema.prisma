@@ -7,36 +7,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum ThemeMode {
-  LIGHT
-  DARK
-  SYSTEM
-}
-
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
-
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   accounts      Account[]
-  sessions      Session[]
-
+  integrations  Integration[]
   preference    Preference?
-
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  sessions      Session[]
 }
 
 model Account {
   id                String  @id @default(cuid())
   userId            String
-
   type              String
   provider          String
   providerAccountId String
-
   refresh_token     String?
   access_token      String?
   expires_at        Int?
@@ -44,8 +34,7 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -55,26 +44,100 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
   identifier String
-  token      String @unique
+  token      String   @unique
   expires    DateTime
 
   @@unique([identifier, token])
 }
 
 model Preference {
-  id        String @id @default(cuid())
-
-  userId    String @unique
-  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  id        String    @id @default(cuid())
+  userId    String    @unique
   theme     ThemeMode @default(SYSTEM)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Integration {
+  id           String              @id @default(cuid())
+  userId       String
+  provider     IntegrationProvider
+  connectionId String?
+  connected    Boolean             @default(false)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model CorsairIntegration {
+  id        String           @id
+  createdAt DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime         @updatedAt @map("updated_at") @db.Timestamptz(6)
+  name      String
+  config    Json             @default("{}")
+  dek       String?
+  accounts  CorsairAccount[]
+
+  @@map("corsair_integrations")
+}
+
+model CorsairAccount {
+  id            String             @id
+  createdAt     DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime           @updatedAt @map("updated_at") @db.Timestamptz(6)
+  tenantId      String             @map("tenant_id")
+  integrationId String             @map("integration_id")
+  config        Json               @default("{}")
+  dek           String?
+  integration   CorsairIntegration @relation(fields: [integrationId], references: [id])
+  entities      CorsairEntity[]
+  events        CorsairEvent[]
+
+  @@map("corsair_accounts")
+}
+
+model CorsairEntity {
+  id         String         @id
+  createdAt  DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime       @updatedAt @map("updated_at") @db.Timestamptz(6)
+  accountId  String         @map("account_id")
+  entityId   String         @map("entity_id")
+  entityType String         @map("entity_type")
+  version    String
+  data       Json           @default("{}")
+  account    CorsairAccount @relation(fields: [accountId], references: [id])
+
+  @@map("corsair_entities")
+}
+
+model CorsairEvent {
+  id        String         @id
+  createdAt DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime       @updatedAt @map("updated_at") @db.Timestamptz(6)
+  accountId String         @map("account_id")
+  eventType String         @map("event_type")
+  payload   Json           @default("{}")
+  status    String?
+  account   CorsairAccount @relation(fields: [accountId], references: [id])
+
+  @@map("corsair_events")
+}
+
+enum ThemeMode {
+  LIGHT
+  DARK
+  SYSTEM
+}
+
+enum IntegrationProvider {
+  GMAIL
+  CALENDAR
 }

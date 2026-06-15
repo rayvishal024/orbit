@@ -9,7 +9,7 @@ export function AppSidebar() {
      const pathname = usePathname();
 
      return (
-          <aside className="w-72 border-r bg-background">
+          <aside className="w-64 border-r bg-background">
                <div className="p-6">
                     <h1 className="text-xl font-bold">
                          Orbit
