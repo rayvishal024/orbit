@@ -2,8 +2,8 @@ import { auth } from "@/auth";
 
 import { getThreads } from "@/lib/gmail";
 import { getSentThreads } from "@/lib/gmail";
-// import { getStarredThreads } from "@/lib/gmail";
-// import { getTrashThreads } from "@/lib/gmail";
+import { getStarredThreads } from "@/lib/gmail";
+import { getTrashThreads } from "@/lib/gmail";
 import { getThread } from "@/lib/gmail";
 
 import { InboxLayout } from "@/components/inbox/inbox-layout";
@@ -33,27 +33,31 @@ export default async function MailPage({
 
   switch (folder) {
     case "sent":
-      threads = await getSentThreads(
-        session.user.id
-      );
+      threads =
+        await getSentThreads(
+          session.user.id
+        );
       break;
 
-    // case "starred":
-    //   threads = await getStarredThreads(
-    //     session.user.id
-    //   );
-    //   break;
+    case "starred":
+      threads =
+        await getStarredThreads(
+          session.user.id
+        );
+      break;
 
-    // case "trash":
-    //   threads = await getTrashThreads(
-    //     session.user.id
-    //   );
-    //   break;
+    case "trash":
+      threads =
+        await getTrashThreads(
+          session.user.id
+        );
+      break;
 
     default:
-      threads = await getThreads(
-        session.user.id
-      );
+      threads =
+        await getThreads(
+          session.user.id
+        );
   }
 
   let selectedThread = null;

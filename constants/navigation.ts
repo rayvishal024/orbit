@@ -41,7 +41,7 @@ export const navigation = [
                     href: "/mail?folder=trash",
                     icon: Trash2,
                },
-          ],
+          ]
      },
      {
           title: "Calendar",

@@ -208,3 +208,83 @@ export async function getSentThreads(
           mapThread
      );
 }
+
+export async function getStarredThreads(
+     userId: string
+) {
+     const tenantId =
+          await getTenantId(userId);
+
+     const result =
+          await corsair
+               .withTenant(tenantId)
+               .gmail
+               .api
+               .threads
+               .list({
+                    q: "is:starred",
+                    maxResults: 25,
+               });
+
+     const threads =
+          result.threads ?? [];
+
+     const detailedThreads =
+          await Promise.all(
+               threads.map((thread) =>
+                    corsair
+                         .withTenant(tenantId)
+                         .gmail
+                         .api
+                         .threads
+                         .get({
+                              id: thread.id!,
+                              format: "full",
+                         })
+               )
+          );
+
+     return detailedThreads.map(
+          mapThread
+     );
+}
+
+export async function getTrashThreads(
+     userId: string
+) {
+     const tenantId =
+          await getTenantId(userId);
+
+     const result =
+          await corsair
+               .withTenant(tenantId)
+               .gmail
+               .api
+               .threads
+               .list({
+                    q: "in:trash",
+                    maxResults: 25,
+               });
+
+     const threads =
+          result.threads ?? [];
+
+     const detailedThreads =
+          await Promise.all(
+               threads.map((thread) =>
+                    corsair
+                         .withTenant(tenantId)
+                         .gmail
+                         .api
+                         .threads
+                         .get({
+                              id: thread.id!,
+                              format: "full",
+                         })
+               )
+          );
+
+     return detailedThreads.map(
+          mapThread
+     );
+}
