@@ -4,6 +4,9 @@ import {
      Calendar,
      Search,
      Settings,
+     Send,
+     Star,
+     Trash2,
 } from "lucide-react";
 
 export const navigation = [
@@ -13,9 +16,32 @@ export const navigation = [
           icon: LayoutDashboard,
      },
      {
-          title: "Inbox",
-          href: "/inbox",
+          title: "Mail",
+          href: "/mail",
           icon: Inbox,
+
+          children: [
+               {
+                    title: "Inbox",
+                    href: "/mail?folder=inbox",
+                    icon: Inbox,
+               },
+               {
+                    title: "Sent",
+                    href: "/mail?folder=sent",
+                    icon: Send,
+               },
+               {
+                    title: "Starred",
+                    href: "/mail?folder=starred",
+                    icon: Star,
+               },
+               {
+                    title: "Trash",
+                    href: "/mail?folder=trash",
+                    icon: Trash2,
+               },
+          ],
      },
      {
           title: "Calendar",

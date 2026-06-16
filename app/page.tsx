@@ -1,9 +1,25 @@
-import React from 'react'
+import { Navbar } from "@/components/landing/navbar";
+import { Hero } from "@/components/landing/hero";
+import { Preview } from "@/components/landing/preview";
+import { Features } from "@/components/landing/features";
+import { AiShowcase } from "@/components/landing/ai-showcase";
+import { Pricing } from "@/components/landing/pricing";
+import { Faq } from "@/components/landing/faq";
+import { Footer } from "@/components/landing/footer";
 
-function Home() {
+export default function HomePage() {
   return (
-    <div>Home Screen </div>
-  )
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <Preview />
+        <Features />
+        <AiShowcase />
+        <Pricing />
+        <Faq />
+      </main>
+      <Footer />
+    </>
+  );
 }
-
-export default Home

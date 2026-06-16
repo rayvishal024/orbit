@@ -1,15 +1,27 @@
-export interface InboxEmail {
+export interface InboxThread {
      id: string;
      subject: string;
-     from: string;
+     sender: string;
      snippet: string;
+     unread: boolean;
+     starred: boolean;
+     timestamp: string;
 }
 
-export interface EmailDetails {
+export interface InboxMessage {
      id: string;
+     threadId: string;
      subject: string;
      from: string;
-     to: string;
-     snippet: string;
      body: string;
+     timestamp: string;
+     unread: boolean;
+     starred: boolean;
+}
+
+export interface InboxThreadDetail {
+     id: string;
+     subject: string;
+     participants: string[];
+     messages: InboxMessage[];
 }
