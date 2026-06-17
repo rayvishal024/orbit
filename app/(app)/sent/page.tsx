@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 
-import { MailboxSidebar } from "@/components/inbox/mailbox-sidebar";
 import { InboxLayout } from "@/components/inbox/inbox-layout";
 import { ThreadList } from "@/components/inbox/thread-list";
 import { ThreadView } from "@/components/inbox/thread-view";

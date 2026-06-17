@@ -1,5 +1,3 @@
-// components/calendar/month-calendar.tsx
-
 "use client";
 
 import {

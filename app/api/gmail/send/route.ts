@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 
 import { sendEmail } from "@/lib/gmail/service";
-import { getSentThreads } from "@/lib/gmail";
 
 
 export async function POST(

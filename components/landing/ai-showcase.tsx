@@ -19,7 +19,7 @@ export function AiShowcase() {
                     <div className="mt-16 rounded-3xl border bg-card p-8">
 
                          <div className="rounded-xl border p-4">
-                              Summarize today's unread emails
+                              Summarize today&apos;s unread emails
                          </div>
 
                          <div className="mt-8 rounded-xl bg-muted p-6">

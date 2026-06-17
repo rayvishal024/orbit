@@ -1,4 +1,3 @@
-import { SendEmailInput } from "@/types/compose";
 
 export function buildRawEmail(input: {
      to: string;

@@ -45,7 +45,6 @@ export async function getEvents(
      const events =
           response.items ?? [];
 
-    // console.log("events :", events)
      return events.map(
           transformEvent
      );

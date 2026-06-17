@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
                where: {
                     userId_provider: {
                          userId: tenantId,
-                         provider: provider as any,
+                         provider: provider,
                     },
                },
                update: {
@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
                },
                create: {
                     userId: tenantId,
-                    provider: provider as any,
+                    provider: provider ,
                     connectionId:  result.tenantId,
                     connected: true,
                },

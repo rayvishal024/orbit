@@ -4,8 +4,41 @@ import {
      InboxThreadDetail,
 } from "@/types/gmail";
 
+type GmailHeader = {
+     name?: string;
+     value?: string;
+};
+
+type GmailPart = {
+     body?: {
+          data?: string;
+     };
+     parts?: GmailPart[];
+     headers?: GmailHeader[];
+};
+
+type GmailMessageRaw = {
+     id?: string;
+     threadId?: string;
+     internalDate?: string;
+     labelIds?: string[];
+     payload?: {
+          headers?: GmailHeader[];
+          body?: {
+               data?: string;
+          };
+          parts?: GmailPart[];
+     };
+};
+
+type GmailThreadRaw = {
+     id?: string;
+     snippet?: string;
+     messages?: GmailMessageRaw[];
+};
+
 function getHeader(
-     headers: any[] | undefined,
+     headers: GmailHeader[] | undefined,
      name: string
 ) {
      return (
@@ -17,7 +50,10 @@ function getHeader(
      );
 }
 
-function extractBody(part: any): string {
+
+function extractBody(
+     part?: GmailPart
+): string {
      if (!part) return "";
 
      if (part.body?.data) {
@@ -39,7 +75,7 @@ function extractBody(part: any): string {
 }
 
 export function mapThread(
-     thread: any
+     thread: GmailThreadRaw
 ): InboxThread {
      const first =
           thread.messages?.[0];
@@ -76,11 +112,11 @@ export function mapThread(
 }
 
 export function mapThreadDetail(
-     thread: any
+     thread: GmailThreadRaw
 ): InboxThreadDetail {
      const messages =
           thread.messages?.map(
-               (message: any): InboxMessage => {
+               (message: GmailMessageRaw): InboxMessage => {
                     const headers =
                          message.payload?.headers ??
                          [];
@@ -134,7 +170,7 @@ export function mapThreadDetail(
 
           participants:
                messages.map(
-                    (m : any) => m.from
+                    (m) => m.from
                ),
 
           messages,

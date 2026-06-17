@@ -1,32 +1,33 @@
-import { CalendarEvent } from "@/types/calendar";
+import {
+     CalendarEvent,
+     GoogleCalendarEvent,
+} from "@/types/calendar";
 
 export function transformEvent(
-     event: any
-) {
+     event: GoogleCalendarEvent
+): CalendarEvent {
      return {
-          id: event.id,
+          id: event.id ?? "",
 
-          title:
-               event.summary ??
-               "Untitled Event",
+          title: event.summary ?? "Untitled Event",
 
-          description:
-               event.description ?? "",
+          description: event.description ?? "",
 
-          location:
-               event.location ?? "",
+          location: event.location ?? "",
 
           start:
                event.start?.dateTime ??
-               event.start?.date,
+               event.start?.date ??
+               "",
 
           end:
                event.end?.dateTime ??
-               event.end?.date,
+               event.end?.date ??
+               "",
 
           attendees:
                event.attendees?.map(
-                    (a: any) => a.email
+                    (a) => a.email ?? ""
                ) ?? [],
      };
 }

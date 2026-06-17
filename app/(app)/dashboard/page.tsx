@@ -1,4 +1,3 @@
-import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
