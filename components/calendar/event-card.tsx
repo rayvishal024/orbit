@@ -44,13 +44,6 @@ export function EventCard({
                          </p>
                     </div>
 
-                    <Button
-                         size="icon"
-                         variant="destructive"
-                         onClick={onDelete}
-                    >
-                         <Trash2 size={16} />
-                    </Button>
 
                     <div className="flex gap-2">
                          <EditEventDialog

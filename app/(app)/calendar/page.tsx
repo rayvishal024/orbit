@@ -8,6 +8,7 @@ import { CreateEventDialog }
   from "@/components/calendar/create-event-dialog";
 import { EventCard }
   from "@/components/calendar/event-card";
+import { MonthCalendar } from "@/components/calendar/month-calendar";
 
 export default async function CalendarPage() {
   const session =
@@ -25,6 +26,7 @@ export default async function CalendarPage() {
 
   return (
     <div className="p-6">
+
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">
@@ -36,20 +38,22 @@ export default async function CalendarPage() {
           </p>
         </div>
 
-
-
         <CreateEventDialog />
       </div>
-      <div className="space-y-4">
-        
+
+      <MonthCalendar
+        events={events}
+      />
+
+      <div className="mt-6 space-y-4">
         {events.map((event) => (
           <EventCard
             key={event.id}
             event={event}
           />
         ))}
-        
       </div>
+
     </div>
   );
 }

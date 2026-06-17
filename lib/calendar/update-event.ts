@@ -30,17 +30,18 @@ export async function updateEvent(
                event: {
                     summary: data.title,
 
-                    description:
-                         data.description,
+                    description: data.description,
 
                     start: {
-                         dateTime: data.start,
-                         timeZone: "Asia/Kolkata",
+                         dateTime: new Date(
+                              data.start
+                         ).toISOString(),
                     },
 
                     end: {
-                         dateTime: data.end,
-                         timeZone: "Asia/Kolkata",
+                         dateTime: new Date(
+                              data.end
+                         ).toISOString(),
                     },
                },
           });

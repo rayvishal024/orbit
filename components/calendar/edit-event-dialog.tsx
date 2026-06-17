@@ -52,6 +52,7 @@ export function EditEventDialog({
           try {
                setLoading(true);
 
+               console.log("form :", form);
                const response =
                     await fetch(
                          `/api/calendar/events/${event.id}`,
