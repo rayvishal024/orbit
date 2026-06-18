@@ -54,11 +54,6 @@ export function Navbar() {
                                    Login
                               </Button>
                          </Link>
-                         <Button>
-                              <Link href="/login">
-                                   Login
-                              </Link>
-                         </Button>
 
                          <Link href="/login">
                               <Button>
